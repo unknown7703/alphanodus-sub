@@ -95,10 +95,13 @@ npm install
 Create a `.env` file in the `backend` folder with your database and secret variables. :
 
 ```env
-DATABASE_URL="postgresql://postgres.bxbqkeakwkxznysdfecz:IesIAmDgx0DIotdW@aws-0-ap-south-1.pooler.supabase.com:5432/postgres"
+DATABASE_URL="postgresql://postgres.bxbqkeakwkxznysdfecz:<PASSWORD>@aws-0-ap-south-1.pooler.supabase.com:5432/postgres"
 JWT_SECRET="KJBbsf7^FS&*7^" 
 ```
-
+```env
+THIS IS THE PASSWORD FOR DB URL PLEASE REPLACE
+IesIAmDgx0DIotdW
+```
 **Backend:**  
 Make sure port 5000 is empty as frontend is hardcoded to query that port
 
