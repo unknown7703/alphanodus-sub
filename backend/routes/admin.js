@@ -1,14 +1,13 @@
-// backend/routes/admin.js
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
 const jwt = require('jsonwebtoken');
 
-// Hardcoded admin credentials
+// fixed logins for admin
 const ADMIN_EMAIL = 'admin@example.com';
 const ADMIN_PASSWORD = 'admin123';
 
-// Admin login
+// login
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
   if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
@@ -18,7 +17,7 @@ router.post('/login', (req, res) => {
   return res.status(401).json({ message: 'Invalid credentials' });
 });
 
-// Middleware to protect admin routes
+// middleware of admin routes
 const auth = (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];
     if (!token) return res.status(401).send('Access denied.');
@@ -32,7 +31,7 @@ const auth = (req, res, next) => {
 };
 
 
-// Create a new job listing
+// new job
 router.post('/jobs', auth, async (req, res) => {
   const { title, department, location, description } = req.body;
   try {
@@ -46,7 +45,7 @@ router.post('/jobs', auth, async (req, res) => {
   }
 });
 
-// Get all applications
+// all applications
 router.get('/applications', auth, async (req, res) => {
     try {
         const result = await db.query(
@@ -59,10 +58,10 @@ router.get('/applications', auth, async (req, res) => {
     }
 });
 
-// Update application status (BONUS)
+// accept /reject
 router.put('/applications/:id/status', auth, async (req, res) => {
     const { id } = req.params;
-    const { status } = req.body; // 'accepted' or 'rejected'
+    const { status } = req.body; 
     try {
         const result = await db.query(
             'UPDATE applications SET status = $1 WHERE id = $2 RETURNING *',
