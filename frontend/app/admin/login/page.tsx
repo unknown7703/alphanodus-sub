@@ -1,4 +1,3 @@
-// frontend/app/admin/login/page.tsx
 'use client';
 
 import { useState } from 'react';
@@ -9,10 +8,22 @@ import * as z from 'zod';
 import api from '@/lib/api';
 
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Invalid email address.' }),
@@ -21,7 +32,6 @@ const loginSchema = z.object({
 
 export default function AdminLoginPage() {
   const router = useRouter();
- 
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -37,57 +47,70 @@ export default function AdminLoginPage() {
     try {
       const response = await api.post('/admin/login', values);
       const { token } = response.data;
-      
-      // Store token in localStorage
+
       localStorage.setItem('adminToken', token);
-      
-     
-      router.push('/admin'); // Redirect to dashboard
-      router.refresh(); // Force a refresh to re-evaluate the layout
+      router.push('/admin');
+      router.refresh();
     } catch (error) {
-      
+      // Handle error
     } finally {
       setIsLoading(false);
     }
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <Card className="w-[350px]">
-        <CardHeader>
-          <CardTitle>Admin Login</CardTitle>
-          <CardDescription>Enter your credentials to access the dashboard.</CardDescription>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <Card className="w-full max-w-md border border-gray-200 rounded-md shadow-sm">
+        <CardHeader className="space-y-2">
+          <CardTitle className="text-xl font-semibold text-gray-800">Admin Login</CardTitle>
+          <CardDescription className="text-sm text-gray-500">
+            Enter your credentials to access the dashboard.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
               <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel className="text-sm font-medium text-gray-700">Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="admin@example.com" {...field} />
+                      <Input
+                        placeholder="admin@example.com"
+                        {...field}
+                        className="bg-white border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel className="text-sm font-medium text-gray-700">Password</FormLabel>
                     <FormControl>
-                      <Input type="password" {...field} />
+                      <Input
+                        type="password"
+                        {...field}
+                        className="bg-white border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full" disabled={isLoading}>
+
+              <Button
+                type="submit"
+                disabled={isLoading}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-md transition-colors"
+              >
                 {isLoading ? 'Logging in...' : 'Login'}
               </Button>
             </form>
