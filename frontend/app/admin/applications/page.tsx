@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-
+import { toast } from 'sonner';
 interface Application {
   id: number;
   full_name: string;
@@ -28,7 +28,7 @@ export default function ApplicationsPage() {
       const response = await api.get('/admin/applications');
       setApplications(response.data);
     } catch (error) {
-      alert("error")
+      toast.error("error fetching applications")
     } finally {
       setIsLoading(false);
     }
@@ -42,9 +42,9 @@ export default function ApplicationsPage() {
     try {
       await api.put(`/admin/applications/${id}/status`, { status });
       
-      fetchApplications(); // Refresh the list
+      fetchApplications(); 
     } catch (error) {
-      alert("error")
+      toast.error("error : failed to update list")
     }
   };
 

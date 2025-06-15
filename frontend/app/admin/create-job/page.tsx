@@ -1,11 +1,10 @@
-// frontend/app/admin/create-job/page.tsx
 'use client';
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import api from '@/lib/api';
-
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -35,10 +34,10 @@ export default function CreateJobPage() {
   async function onSubmit(values: z.infer<typeof jobSchema>) {
     try {
       await api.post('/admin/jobs', values);
-      alert("success")
+      toast.success("Created New Job !")
       form.reset();
     } catch (error) {
-      alert("error")
+      toast.error("Failed to create job")
     }
   }
 
@@ -52,7 +51,7 @@ export default function CreateJobPage() {
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              {/* --- COMPLETED SECTION --- */}
+          
               <FormField
                 control={form.control}
                 name="title"
@@ -92,7 +91,7 @@ export default function CreateJobPage() {
                   </FormItem>
                 )}
               />
-              {/* --- END OF COMPLETED SECTION --- */}
+              
 
               <FormField
                 control={form.control}

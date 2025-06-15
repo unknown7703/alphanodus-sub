@@ -1,4 +1,3 @@
-// frontend/app/admin/page.tsx
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function AdminDashboardPage() {
@@ -10,7 +9,7 @@ export default function AdminDashboardPage() {
           <CardTitle>Welcome, Admin!</CardTitle>
         </CardHeader>
         <CardContent>
-          <p>Use the navigation on the left to manage job listings and view applications.</p>
+          <p>Here you can create new job and review applications(you can accept or reject them) , resume from all application are stored in /upload</p>
         </CardContent>
       </Card>
     </div>

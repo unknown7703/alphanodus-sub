@@ -1,4 +1,3 @@
-// frontend/app/admin/layout.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -32,13 +31,10 @@ export default function AdminLayout({
     localStorage.removeItem('adminToken');
     router.push('/admin/login');
   };
-
-  // Do not render layout on the login page
   if (pathname === '/admin/login') {
     return <>{children}</>;
   }
   
-  // Render a loading state or null until client-side check is complete
   if (!isClient) {
     return null;
   }
@@ -48,13 +44,13 @@ export default function AdminLayout({
       <aside className="w-64 bg-gray-100 p-4 border-r">
         <h2 className="text-xl font-bold mb-6">Admin Panel</h2>
         <nav className="flex flex-col space-y-2">
-          <Button variant={pathname === '/admin' ? 'secondary' : 'ghost'} asChild>
+          <Button variant={pathname === '/admin' ? 'default' : 'ghost'} asChild>
             <Link href="/admin">Dashboard</Link>
           </Button>
-          <Button variant={pathname === '/admin/create-job' ? 'secondary' : 'ghost'} asChild>
+          <Button variant={pathname === '/admin/create-job' ? 'default' : 'ghost'} asChild>
             <Link href="/admin/create-job">Create Job</Link>
           </Button>
-          <Button variant={pathname === '/admin/applications' ? 'secondary' : 'ghost'} asChild>
+          <Button variant={pathname === '/admin/applications' ? 'default' : 'ghost'} asChild>
             <Link href="/admin/applications">Applications</Link>
           </Button>
         </nav>

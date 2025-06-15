@@ -24,6 +24,8 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import Link from 'next/link';
+import { toast } from "sonner";
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Invalid email address.' }),
@@ -47,19 +49,24 @@ export default function AdminLoginPage() {
     try {
       const response = await api.post('/admin/login', values);
       const { token } = response.data;
-
+      toast.success("Logged in successfully!");
       localStorage.setItem('adminToken', token);
       router.push('/admin');
       router.refresh();
     } catch (error) {
-      // Handle error
+      toast.error("Login failed. Please check your credentials.");
     } finally {
       setIsLoading(false);
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 relative">
+      
+      <Button asChild variant="ghost" className="absolute top-4 left-4">
+        <Link href="/">← Back to Home</Link>
+      </Button>
+
       <Card className="w-full max-w-md border border-gray-200 rounded-md shadow-sm">
         <CardHeader className="space-y-2">
           <CardTitle className="text-xl font-semibold text-gray-800">Admin Login</CardTitle>

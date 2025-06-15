@@ -21,7 +21,7 @@ async function getJobDetails(id: string) {
   return res.json();
 }
 
-// Department color mapping
+
 const getDepartmentColor = (department: string) => {
   const colors: { [key: string]: string } = {
     'Engineering': 'bg-gradient-to-r from-blue-500 to-cyan-500',
@@ -66,7 +66,6 @@ export default async function JobDetailPage({ params }: { params: { id: string }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-      {/* Header Section */}
       <div className="bg-white/80 backdrop-blur-sm border-b shadow-sm">
         <div className="container mx-auto px-4 py-6">
           <Button variant="ghost" asChild className="mb-4 hover:bg-blue-50">
@@ -109,10 +108,9 @@ export default async function JobDetailPage({ params }: { params: { id: string }
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Job Description */}
+ 
           <div className="lg:col-span-2 space-y-6">
             <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
               <CardHeader>
@@ -130,7 +128,6 @@ export default async function JobDetailPage({ params }: { params: { id: string }
               </CardContent>
             </Card>
 
-            {/* Quick Facts */}
             <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
               <CardHeader>
                 <CardTitle className="text-xl text-gray-900">Quick Facts</CardTitle>
@@ -159,8 +156,6 @@ export default async function JobDetailPage({ params }: { params: { id: string }
               </CardContent>
             </Card>
           </div>
-
-          {/* Application Form Sidebar */}
           
               <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-xl">
                 <CardHeader className=" text-black rounded-t-lg">
